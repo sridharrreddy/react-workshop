@@ -11,45 +11,42 @@ class Add extends React.Component {
     };
   }
 
-  render() {
+  onOpChange = event => {
     const { onOpCountChange } = this.props;
-    const onOp1Change = event => {
-      const { value } = event.target;
-      this.setState(
-        () => {
-          const { operationCount } = this.state;
-          return {
-            op1: parseInt(value),
-            operationCount: operationCount + 1,
-          };
-        },
-        () => {
-          const { operationCount } = this.state;
-          onOpCountChange(operationCount);
-        }
-      );
-    };
-    const onOp2Change = event => {
-      const { value } = event.target;
-      this.setState(
-        () => {
-          const { operationCount } = this.state;
-          return {
-            op2: parseInt(value),
-            operationCount: operationCount + 1,
-          };
-        },
-        () => {
-          const { operationCount } = this.state;
-          onOpCountChange(operationCount);
-        }
-      );
-    };
+    const { value, name } = event.target;
+    const opValue = parseInt(value);
+    this.setState(
+      prevState => {
+        const { operationCount, op1, op2 } = prevState;
+        return {
+          op1: name === 'op1' ? opValue : op1,
+          op2: name === 'op2' ? opValue : op2,
+          operationCount: operationCount + 1,
+        };
+      },
+      () => {
+        const { operationCount } = this.state;
+        onOpCountChange(operationCount);
+      }
+    );
+  };
+
+  render() {
     const { op1, op2 } = this.state;
     return (
       <div>
-        <input type="number" placeholder="operand 1" onChange={onOp1Change} />
-        <input type="number" placeholder="operand 2" onChange={onOp2Change} />
+        <input
+          type="number"
+          name="op1"
+          placeholder="operand 1"
+          onChange={this.onOpChange}
+        />
+        <input
+          type="number"
+          name="op2"
+          placeholder="operand 2"
+          onChange={this.onOpChange}
+        />
         <div>
           <span>{`Result: ${op1 + op2}`}</span>
         </div>
