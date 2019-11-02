@@ -1,20 +1,9 @@
-import React from 'react'
-import './App.css'
-
-function greet(language, name) {
-  switch (language) {
-    case 'es':
-      return 'Hola ' + name + '!'
-    case 'gb':
-      return 'Halo ' + name
-    case 'en':
-    default:
-      return 'Hello ' + name
-  }
-}
+import React from 'react';
+import './App.css';
+import LocaleGreet from './components/LocaleGreet';
 
 function App({ lang, name }) {
-  return <div className="App">{greet(lang, name)}</div>
+  return <LocaleGreet lang={lang} name={name} />;
 }
 
-export default App
+export default App;
