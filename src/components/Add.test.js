@@ -3,15 +3,15 @@ import { render, fireEvent } from '@testing-library/react';
 import Add from './Add';
 
 it('should render result of 0 when operands are not changed', () => {
-  const { getByPlaceholderText, getByText } = render(<Add />);
-  const op1 = getByPlaceholderText('operand 1');
-  const op2 = getByPlaceholderText('operand 2');
+  const { getByText } = render(<Add />);
 
   expect(getByText('Result: 0')).toBeTruthy();
 });
 
 it('should render result of 3 when value of operand 1 is set to 3', () => {
-  const { getByPlaceholderText, getByText } = render(<Add />);
+  const { getByPlaceholderText, getByText } = render(
+    <Add onOpCountChange={() => jest.fn()} />
+  );
   const op1 = getByPlaceholderText('operand 1');
   let event = { target: { value: '3' } };
   fireEvent.change(op1, event);
@@ -20,7 +20,9 @@ it('should render result of 3 when value of operand 1 is set to 3', () => {
 });
 
 it('should render result of 10 when value of operand 1 is set to 3 and operand 2 is set to 7', () => {
-  const { getByPlaceholderText, getByText } = render(<Add />);
+  const { getByPlaceholderText, getByText } = render(
+    <Add onOpCountChange={() => jest.fn()} />
+  );
   const op1 = getByPlaceholderText('operand 1');
   const op2 = getByPlaceholderText('operand 2');
   let event1 = { target: { value: '3' } };

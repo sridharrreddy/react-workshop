@@ -4,18 +4,31 @@ class Add extends React.Component {
   state = {
     op1: 0,
     op2: 0,
+    operationCount: 0,
   };
 
   render() {
     const onOp1Change = event => {
-      this.setState({
-        op1: parseInt(event.target.value),
-      });
+      this.setState(
+        {
+          op1: parseInt(event.target.value),
+          operationCount: this.state.operationCount + 1,
+        },
+        () => {
+          this.props.onOpCountChange(this.state.operationCount);
+        }
+      );
     };
     const onOp2Change = event => {
-      this.setState({
-        op2: parseInt(event.target.value),
-      });
+      this.setState(
+        {
+          op2: parseInt(event.target.value),
+          operationCount: this.state.operationCount + 1,
+        },
+        () => {
+          this.props.onOpCountChange(this.state.operationCount);
+        }
+      );
     };
     return (
       <div>
