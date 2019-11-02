@@ -1,0 +1,14 @@
+{
+  "env": {
+    "browser": true,
+    "node": true,
+    "jest": true
+  },
+  "parser": "babel-eslint",
+  "extends": ["eslint:recommended", "airbnb", "prettier"],
+  "plugins": ["prettier"],
+  "rules": {
+    "react/jsx-filename-extension": "off",
+    "radix": "off"
+  }
+}
