@@ -1,5 +1,6 @@
 import React from 'react';
 import {
+  CircularProgress,
   Paper,
   Table,
   TableBody,
@@ -22,22 +23,29 @@ function RenderTableCell(userId, columnId, value) {
       return <TableCell key={columnId}>{value}</TableCell>;
   }
 }
+
+function sleep(time) {
+  return new Promise(resolve => setTimeout(resolve, time));
+}
+
 class Blogger extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
+      loading: true,
       users: [],
     };
   }
 
   async componentDidMount() {
+    await sleep(2000);
     GetUsers().then(response => {
-      this.setState({ users: response });
+      this.setState({ users: response, loading: false });
     });
   }
 
   render() {
-    const { users } = this.state;
+    const { users, loading } = this.state;
     const columns = [
       { id: 'name', label: 'Name', minWidth: 270 },
       { id: 'posts', label: 'Posts', minWidth: 170 },
@@ -60,16 +68,24 @@ class Blogger extends React.Component {
               </TableRow>
             </TableHead>
             <TableBody>
-              {users.map(row => {
-                return (
-                  <TableRow hover role="listitem" tabIndex={-1} key={row.id}>
-                    {columns.map(column => {
-                      const value = row[column.id];
-                      return RenderTableCell(row.id, column.id, value);
-                    })}
-                  </TableRow>
-                );
-              })}
+              {loading ? (
+                <TableRow hover role="listitem" tabIndex={-1}>
+                  <TableCell>
+                    <CircularProgress />
+                  </TableCell>
+                </TableRow>
+              ) : (
+                users.map(row => {
+                  return (
+                    <TableRow hover role="listitem" tabIndex={-1} key={row.id}>
+                      {columns.map(column => {
+                        const value = row[column.id];
+                        return RenderTableCell(row.id, column.id, value);
+                      })}
+                    </TableRow>
+                  );
+                })
+              )}
             </TableBody>
           </Table>
         </div>
