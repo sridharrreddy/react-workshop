@@ -7,12 +7,17 @@ import {
   TableRow,
   TableCell,
 } from '@material-ui/core';
+import { Link } from '@reach/router';
 import GetUsers from '../service';
 
 function RenderTableCell(userId, columnId, value) {
   switch (columnId) {
     case 'posts':
-      return <TableCell key={columnId}>{`/users/${userId}/posts`}</TableCell>;
+      return (
+        <TableCell key={columnId}>
+          <Link to={`/user/${userId}/posts`}>Posts</Link>
+        </TableCell>
+      );
     default:
       return <TableCell key={columnId}>{value}</TableCell>;
   }
