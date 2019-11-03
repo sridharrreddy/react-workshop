@@ -9,7 +9,7 @@ import {
   TableCell,
 } from '@material-ui/core';
 import { Link } from '@reach/router';
-import GetUsers from '../service';
+import { GetUsers } from '../service';
 
 function RenderTableCell(userId, columnId, value) {
   switch (columnId) {

@@ -11,7 +11,7 @@ function App() {
       <Grid item xs={12}>
         <Router>
           <Blogger path="/" />
-          <Posts path="/user/:userId/posts" />
+          <Posts path="/user/:userId/posts" userId="0" />
         </Router>
       </Grid>
     </Container>

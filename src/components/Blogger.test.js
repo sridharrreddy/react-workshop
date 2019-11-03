@@ -1,7 +1,7 @@
 import React from 'react';
 import { render, waitForElementToBeRemoved } from '@testing-library/react';
 import Blogger from './Blogger';
-import GetUsers from '../service';
+import { GetUsers } from '../service';
 
 jest.mock('../service');
 
