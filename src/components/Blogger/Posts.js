@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { string } from 'prop-types';
 import {
   CircularProgress,
+  IconButton,
   Paper,
   Table,
   TableBody,
@@ -11,7 +12,8 @@ import {
   TableFooter,
   TablePagination,
 } from '@material-ui/core';
-import { GetUserPosts } from '../../service';
+import DeleteIcon from '@material-ui/icons/Delete';
+import { GetUserPosts, DeleteUserPost } from '../../service';
 
 class Posts extends Component {
   constructor(props) {
@@ -40,14 +42,22 @@ class Posts extends Component {
     });
   };
 
+  onDeletePost = async postId => {
+    await DeleteUserPost(postId);
+    this.onChangePage(null, 0);
+  };
+
   render() {
     const { posts, loading, page, rowsPerPage, totalCount } = this.state;
-    const columns = [{ id: 'title', label: 'Title', minWidth: 270 }];
+    const columns = [
+      { id: 'title', label: 'Title', minWidth: 270 },
+      { id: 'delete', label: '', minWidth: 30 },
+    ];
 
     return (
       <Paper>
         <div>
-          <Table stickyHeader aria-label="user list" title="user list">
+          <Table stickyHeader aria-label="user list">
             <TableHead>
               <TableRow>
                 {columns.map(column => (
@@ -73,6 +83,14 @@ class Posts extends Component {
                   return (
                     <TableRow hover role="listitem" tabIndex={-1} key={row.id}>
                       <TableCell key={id}>{title}</TableCell>
+                      <TableCell>
+                        <IconButton
+                          aria-label="delete"
+                          onClick={() => this.onDeletePost(row.id)}
+                        >
+                          <DeleteIcon />
+                        </IconButton>
+                      </TableCell>
                     </TableRow>
                   );
                 })

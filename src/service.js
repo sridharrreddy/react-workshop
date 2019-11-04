@@ -16,3 +16,9 @@ export async function GetUserPosts(userId, page = 1, limit = 10) {
     total: parseInt(response.headers['x-total-count']),
   };
 }
+
+export async function DeleteUserPost(postId) {
+  const response = await axios.delete(
+    `https://jsonplaceholder.typicode.com/posts/${postId}`
+  );
+}
